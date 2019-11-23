@@ -1,3 +1,5 @@
+"use_strict";
+
 const FILM_CARDS_COUNT = 5;
 
 const createUserProfileCard = () => {
