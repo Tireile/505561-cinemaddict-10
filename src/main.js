@@ -154,13 +154,11 @@ render(siteMainElement, createFilterTemplate());
 render(siteMainElement, createFilmDetales());
 render(siteMainElement, createFilmsTemplate());
 
-const filmsListElement = siteMainElement.querySelector(
-  `.films-list__container`
-);
+const filmListElement = siteMainElement.querySelector(`.films-list__container`);
 
 new Array(FILM_CARDS_COUNT)
   .fill(``)
-  .forEach(() => render(filmsListElement, createFilmCardTemplate()));
+  .forEach(() => render(filmListElement, createFilmCardTemplate()));
 
 const filmElement = siteMainElement.querySelector(`.films-list`);
 render(filmElement, createShowMoreButton());
