@@ -1,4 +1,4 @@
-"use_strict";
+'use_strict';
 
 const FILM_CARDS_COUNT = 5;
 
