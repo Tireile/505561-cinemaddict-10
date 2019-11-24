@@ -1,11 +1,12 @@
-import { createUserProfileCard } from "./components/profile";
-import { createStatisticTemplate } from "./components/statistic";
-import { createFilterTemplate } from "./components/filter";
-import { createFilmsTemplate } from "./components/films";
-import { topRatedFilmsTemplate } from "./components/top-rated-films";
-import { createFilmCardTemplate } from "./components/film-card";
-import { createFilmDetales } from "./components/film-detales";
-import { createShowMoreButton } from "./components/show-more-btn";
+import {createUserProfileCard} from "./components/profile";
+import {createStatisticTemplate} from "./components/statistic";
+import {createFilterTemplate} from "./components/filter";
+import {createFilmsTemplate} from "./components/films";
+import {topRatedFilmsTemplate} from "./components/top-rated-films";
+import {createFilmCardTemplate} from "./components/film-card";
+import {createFilmDetales} from "./components/film-detales";
+import {createShowMoreButton} from "./components/show-more-btn";
+import {mostCommentedFilmTemplate} from "./components/most-commented-films";
 
 const FILM_CARDS_COUNT = 5;
 

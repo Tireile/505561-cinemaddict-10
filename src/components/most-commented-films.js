@@ -1,4 +1,4 @@
-import { createFilmCardTemplate } from "./film-card";
+import {createFilmCardTemplate} from "./film-card";
 
 export const mostCommentedFilmTemplate = () => {
   return `<section class="films-list--extra">
