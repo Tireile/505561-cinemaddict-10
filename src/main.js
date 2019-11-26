@@ -23,15 +23,24 @@ render(siteMainElement, createFilterTemplate());
 render(siteMainElement, createFilmDetales());
 render(siteMainElement, createFilmsTemplate());
 
-const filmListElement = siteMainElement.querySelector(`.films-list__container`);
+const filmMenuElement = siteMainElement.querySelector(`.films-list`);
+const filmListElement = filmMenuElement.querySelector(`.films-list__container`);
 
 new Array(FILM_CARDS_COUNT)
   .fill(``)
   .forEach(() => render(filmListElement, createFilmCardTemplate()));
 
-const filmElement = siteMainElement.querySelector(`.films-list`);
-render(filmElement, createShowMoreButton());
+render(filmMenuElement, createShowMoreButton());
 
 const extraFilmElement = siteMainElement.querySelector(`.films`);
 render(extraFilmElement, topRatedFilmsTemplate());
 render(extraFilmElement, mostCommentedFilmTemplate());
+
+const filmContainerElement = [...extraFilmElement.querySelectorAll(`.films-list--extra`)];
+
+filmContainerElement.forEach((item) => {
+  const extraFilmCardElement = item.querySelector(`.films-list__container`);
+  new Array(2)
+    .fill(``)
+    .forEach(() => render(extraFilmCardElement, createFilmCardTemplate()));
+});
