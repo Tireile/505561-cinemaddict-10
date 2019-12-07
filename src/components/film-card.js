@@ -1,15 +1,15 @@
 const genresRender = (genres) => {
   const genreElements = [];
-  genres.forEach(item => genreElements.push(item))
+  genres.forEach((item) => genreElements.push(item));
   return genreElements[0];
-}
+};
 
 const commentsRender = (comments) => {
-  return (comments === 1) ? `${comments} comment` : `${comments} comments`
-}
+  return (comments === 1) ? `${comments} comment` : `${comments} comments`;
+};
 
 export const createFilmCardTemplate = (card) => {
-  const { filmName, releaseDate: { year }, duration, genres, poster, description, comments, rating } = card;
+  const {filmName, releaseDate: {year}, duration, genres, poster, description, comments, rating} = card;
   return `<article class="film-card">
           <h3 class="film-card__title">${filmName}</h3>
           <p class="film-card__rating">${rating}</p>

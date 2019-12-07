@@ -1,20 +1,20 @@
 const profileRank = (count) => {
   let rank = `newbie`;
-  if (0 < count && count <= 5) {
+  if (count > 0 && count <= 5) {
     rank = `movies buff`;
-  } else if (5 < count && count <= 10) {
+  } else if (count > 5 && count <= 10) {
     rank = `movies master`;
   } else {
     rank = `God of movies`;
   }
   return rank;
-}
+};
 
 const watchlistCount = (cards) => {
   let count = 0;
   cards.forEach((card) => (card.isWatchlist ? count++ : count));
   return profileRank(count);
-}
+};
 
 
 export const createUserProfileCard = (cards) => {

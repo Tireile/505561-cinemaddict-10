@@ -1,13 +1,13 @@
-import { createUserProfileCard } from "./components/profile";
-import { createStatisticTemplate } from "./components/statistic";
-import { createFilterTemplate } from "./components/filter";
-import { createFilmsTemplate } from "./components/films";
-import { createFilmCardTemplate } from "./components/film-card";
-import { createFilmDetales } from "./components/film-detales";
-import { createShowMoreButton } from "./components/show-more-btn";
-import { extraFilmsTemplate } from "./components/extra-films-template";
-import { generateCards } from "./mock/card";
-import { generateFilters } from "./mock/filter";
+import {createUserProfileCard} from "./components/profile";
+import {createStatisticTemplate} from "./components/statistic";
+import {createFilterTemplate} from "./components/filter";
+import {createFilmsTemplate} from "./components/films";
+import {createFilmCardTemplate} from "./components/film-card";
+import {createFilmDetales} from "./components/film-detales";
+import {createShowMoreButton} from "./components/show-more-btn";
+import {extraFilmsTemplate} from "./components/extra-films-template";
+import {generateCards} from "./mock/card";
+import {generateFilters} from "./mock/filter";
 
 const FILM_CARDS_COUNT = 12;
 const SHOWING_CARDS_COUNT_ON_START = 5;
@@ -17,19 +17,21 @@ const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
 };
 
+const handleFilmCardClick = (card) => {
+  render(siteMainElement, createFilmDetales(card));
+  const filmDetalesElement = siteMainElement.querySelector(`.film-details`);
+  document.querySelector(`.film-details__close-btn`).addEventListener(`click`, () => filmDetalesElement.remove());
+};
+
 const renderFilmCards = (cards, start, end) => {
   cards
     .slice(start, end)
     .forEach((card, index) => {
-      render(filmListElement, createFilmCardTemplate(card))
+      render(filmListElement, createFilmCardTemplate(card));
       const cardElement = document.querySelectorAll(`.film-card`)[index + start];
-      cardElement.addEventListener(`click`, () => {
-        render(siteMainElement, createFilmDetales(card));
-        const filmDetalesElement = siteMainElement.querySelector(`.film-details`)
-        document.querySelector(`.film-details__close-btn`).addEventListener(`click`, () => filmDetalesElement.remove());
-      })
+      cardElement.addEventListener(`click`, () => handleFilmCardClick(card));
     });
-}
+};
 
 const cards = generateCards(FILM_CARDS_COUNT);
 
@@ -66,14 +68,14 @@ showMoreButton.addEventListener(`click`, () => {
 });
 
 const extraFilmElement = siteMainElement.querySelector(`.films`);
-render(extraFilmElement, extraFilmsTemplate(`Top Rated`));
-render(extraFilmElement, extraFilmsTemplate(`Most Commented`));
+render(extraFilmElement, extraFilmsTemplate(`Top Rated`, `top-rated`));
+render(extraFilmElement, extraFilmsTemplate(`Most Commented`, `most-commented`));
 
 
 const filmContainerElement = [...extraFilmElement.querySelectorAll(`.films-list--extra`)];
 
-const getTopRatedFilms = (cards) => {
-  const sortedCards = cards.slice().sort((a, b) => {
+const getTopRatedFilms = (cardsArray) => {
+  const sortedCards = cardsArray.slice().sort((a, b) => {
     if (a.rating > b.rating) {
       return 1;
     }
@@ -81,13 +83,13 @@ const getTopRatedFilms = (cards) => {
       return -1;
     }
     return 0;
-  })
+  });
   sortedCards.splice(0, sortedCards.length - 2);
   return sortedCards;
-}
+};
 
-const getTopCommentsFilms = (cards) => {
-  const sortedCards = cards.slice().sort((a, b) => {
+const getTopCommentsFilms = (cardsArray) => {
+  const sortedCards = cardsArray.slice().sort((a, b) => {
     if (a.comments > b.comments) {
       return 1;
     }
@@ -95,17 +97,25 @@ const getTopCommentsFilms = (cards) => {
       return -1;
     }
     return 0;
-  })
+  });
   sortedCards.splice(0, sortedCards.length - 2);
   return sortedCards;
-}
+};
+
+const tail = (list) => list[list.length - 1];
 
 const topRatedElement = filmContainerElement[0].querySelector(`.films-list__container`);
 const topRatedCards = getTopRatedFilms(cards);
 topRatedCards.forEach((card) => {
-  render(topRatedElement, createFilmCardTemplate(card))
-})
+  render(topRatedElement, createFilmCardTemplate(card));
+  const cardElement = tail(topRatedElement.querySelectorAll(`.film-card`));
+  cardElement.addEventListener(`click`, () => handleFilmCardClick(card));
+});
 
 const topCommentedElement = filmContainerElement[1].querySelector(`.films-list__container`);
 const topCommentsCards = getTopCommentsFilms(cards);
-topCommentsCards.forEach((card) => render(topCommentedElement, createFilmCardTemplate(card)))
+topCommentsCards.forEach((card) => {
+  render(topCommentedElement, createFilmCardTemplate(card));
+  const cardElement = tail(topCommentedElement.querySelectorAll(`.film-card`));
+  cardElement.addEventListener(`click`, () => handleFilmCardClick(card));
+});

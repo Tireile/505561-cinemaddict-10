@@ -1,7 +1,10 @@
-export const extraFilmsTemplate = (value) => {
-  return `<section class="films-list--extra">
-      <h2 class="films-list__title">${value}</h2>
+export const extraFilmsTemplate = (title, specificator) => {
+  const className = `films-list--extra films-list--${specificator}`;
+  return (
+    `<section class="${className}">
+      <h2 class="films-list__title">${title}</h2>
       <div class="films-list__container">
       </div>
-    </section>`;
+    </section>`
+  );
 };

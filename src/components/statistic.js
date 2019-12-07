@@ -1,13 +1,13 @@
 const createFilterMarkup = (filter, isStats) => {
-  const { name, count } = filter;
+  const {name, count} = filter;
   const hashtagName = name.toLowerCase().split(` `).filter((key) => key[0]).join();
   return `<a href="#${hashtagName}" class="main-navigation__item ${isStats ? `main-navigation__item--additional` : ``}">${name} 
             ${isStats ? `` :
-      `<span class="main-navigation__item-count">${count}
+    `<span class="main-navigation__item-count">${count}
             </span>`}
             
-          </a>`
-}
+          </a>`;
+};
 
 export const createStatisticTemplate = (filters) => {
   const filtersMarkup = filters
