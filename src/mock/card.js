@@ -129,7 +129,17 @@ const getRandomArrayItem = (array) => {
     return array[randomIndex];
 };
 
-const generateDescription = (content) => content.split(`. `).filter(() => Math.random() > 0.5).slice(1, 3);
+const generateDescription = (content) => content.split(`.`).map((item) => `${item}.`).filter(() => Math.random() > 0.5).slice(1, 3).join(` `);
+
+const generateFullDescription = (content) => {
+    const fullDescription = [];
+    content.split(`.`).map((item) => {
+        return (Math.random() > 0.5) ?
+            fullDescription.unshift(`${item}.`) :
+            fullDescription.push(`${item}.`)
+    })
+    return fullDescription.join(` `);
+}
 
 const generateDuration = () => {
     const durationValue = { hours: [1, 3], minutes: [0, 60] };
@@ -138,28 +148,29 @@ const generateDuration = () => {
 };
 
 const generateRating = () => {
-    let value = getRandomIntegerNumber(0, 10);
-    return `${value}.${(Math.ceil((value) * 100) / 100)}`
+    return `${getRandomIntegerNumber(0, 10)}.${(Math.ceil((getRandomIntegerNumber(0, 10)) * 100) / 100)}`
 };
 
-const generatePeople = (people) => people.map(() => getRandomArrayItem(people)).filter(() => Math.random() > 0.5).slice(0, 3);
+const generatePeople = (people) => people.map(() => getRandomArrayItem(people)).filter(() => Math.random() > 0.5).slice(0, 3).join(`, `);
 
 const generateReleaseDate = (months, years) => {
+    const month = getRandomArrayItem(Object.keys(months));
     return {
-        month: getRandomArrayItem(Object.keys(months)),
-        day: getRandomIntegerNumber(1, months[this.month]),
+        month,
+        day: getRandomIntegerNumber(1, months[month]),
         year: getRandomArrayItem(years)
     }
 };
 
 const generateGenres = (genres) =>
-    genres.filter(() => Math.random() > 0.5).slice(1, 3);
+    genres.filter(() => Math.random() > 0.3).slice(1, 3);
 
 const generateCard = () => {
     return {
         filmName: getRandomArrayItem(filmsList),
         poster: getRandomArrayItem(posters),
         description: generateDescription(description),
+        fullDescription: generateFullDescription(description),
         duration: generateDuration(),
         rating: generateRating(),
         isAdult: Math.random() > 0.8,
@@ -169,5 +180,13 @@ const generateCard = () => {
         releaseDate: generateReleaseDate(months, years),
         country: getRandomArrayItem(countries),
         genres: new Set(generateGenres(genres)),
+        comments: getRandomIntegerNumber(0, 10),
+        isFavorite: Math.random() > 0.5,
+        isViewed: Math.random() > 0.5,
+        isWatchlist: Math.random() > 0.5,
     }
 };
+
+const generateCards = (count) => new Array(count).fill(``).map(generateCard);
+
+export { generateCard, generateCards };
