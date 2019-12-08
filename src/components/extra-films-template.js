@@ -1,5 +1,5 @@
-export const extraFilmsTemplate = (title, specificator) => {
-  const className = `films-list--extra films-list--${specificator}`;
+export const extraFilmsTemplate = (title) => {
+  const className = `films-list--extra`;
   return (
     `<section class="${className}">
       <h2 class="films-list__title">${title}</h2>

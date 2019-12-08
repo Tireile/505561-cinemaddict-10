@@ -5,7 +5,7 @@ const genresRender = (genres) => {
 };
 
 const commentsRender = (comments) => {
-  return (comments === 1) ? `${comments} comment` : `${comments} comments`;
+  return (comments.length === 1) ? `${comments.length} comment` : `${comments.length} comments`;
 };
 
 export const createFilmCardTemplate = (card) => {

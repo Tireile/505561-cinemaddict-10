@@ -118,6 +118,26 @@ const actors = [
   `Erin Diaz`
 ];
 
+const autors = [
+  `Ramirez Scotland`,
+  `Andrea Brown`,
+  `Emmanuella Johnson`,
+  `Islay Jimenez`,
+  `Sean Arnold`,
+  `Michelle Morrison`,
+  `Andrina Bennett`,
+  `Emil Reyes`,
+  `Marvin O'Brien`,
+  `Wilma O'Reilly`
+];
+
+const smiles = [
+  `./images/emoji/smile.png`,
+  `./images/emoji/sleeping.png`,
+  `./images/emoji/puke.png`,
+  `./images/emoji/angry.png`,
+];
+
 const countries = [`USA`, `England`, `Austria`, `Japan`, `France`, `Spain`, `Canada`];
 
 const getRandomIntegerNumber = (min, max) => {
@@ -129,7 +149,54 @@ const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
+
 const generateDescription = (content) => content.split(`.`).map((item) => `${item}.`).filter(() => Math.random() > 0.5).slice(1, 3).join(` `);
+
+const generateCommentDescription = (content) => content.split(`.`).map((item) => `${item}.`).filter(() => Math.random() > 0.5).slice(0, 1).join(` `);
+
+const formatDate = (date) => {
+  const formatDueDate = Object.fromEntries(
+      new Intl.DateTimeFormat(`en-US`, {
+        hourCycle: `h12`,
+        day: `2-digit`,
+        month: `long`,
+        hour: `numeric`,
+        minute: `numeric`
+      })
+      .formatToParts(date)
+      .map((el) => [el.type, el.value])
+  );
+  return formatDueDate;
+};
+
+function getRandomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+const isToday = (someDate) => {
+  const today = new Date();
+  return someDate.getDate() === today.getDate() &&
+    someDate.getMonth() === today.getMonth() &&
+    someDate.getFullYear() === today.getFullYear();
+};
+
+const createDate = (date) => {
+  const formatDueDate = formatDate(date);
+  const {day, dayPeriod, hour, minute, month} = formatDueDate;
+  const today = isToday(date);
+  return `${!today ? `${day} ${month}` : `Today`} ${hour}:${minute}${dayPeriod}`;
+};
+
+const getComment = () => {
+  return {
+    autor: getRandomArrayItem(autors),
+    notice: generateCommentDescription(description),
+    smile: getRandomArrayItem(smiles),
+    date: createDate(getRandomDate(new Date(2012, 0, 1), new Date()))
+  };
+};
+
+const generateComments = (count) => new Array(count).fill(``).map(getComment);
 
 const generateFullDescription = (content) => {
   const fullDescription = [];
@@ -180,7 +247,7 @@ const generateCard = () => {
     releaseDate: generateReleaseDate(months, years),
     country: getRandomArrayItem(countries),
     genres: new Set(generateGenres(genres)),
-    comments: getRandomIntegerNumber(0, 10),
+    comments: generateComments(getRandomIntegerNumber(1, 10)),
     isFavorite: Math.random() > 0.5,
     isViewed: Math.random() > 0.5,
     isWatchlist: Math.random() > 0.5,

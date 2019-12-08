@@ -11,11 +11,11 @@ const profileRank = (count) => {
 };
 
 const watchlistCount = (cards) => {
-  let count = 0;
-  cards.forEach((card) => (card.isWatchlist ? count++ : count));
+  const count = cards.reduce((accumulator, card) => {
+    accumulator += card.isWatchlist ? 1 : 0;
+  }, 0);
   return profileRank(count);
 };
-
 
 export const createUserProfileCard = (cards) => {
 
