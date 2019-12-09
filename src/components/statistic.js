@@ -1,9 +1,19 @@
-export const createStatisticTemplate = () => {
+const createFilterMarkup = (filter, isStats) => {
+  const {name, count} = filter;
+  const hashtagName = name.toLowerCase().split(` `).filter((key) => key[0]).join();
+  return `<a href="#${hashtagName}" class="main-navigation__item ${isStats ? `main-navigation__item--additional` : ``}">${name} 
+            ${isStats ? `` :
+    `<span class="main-navigation__item-count">${count}
+            </span>`}
+            
+          </a>`;
+};
+
+export const createStatisticTemplate = (filters) => {
+  const filtersMarkup = filters
+    .map((item, i) => createFilterMarkup(item, i === filters.length - 1))
+    .join(`\n`);
   return `<nav class="main-navigation">
-    <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
-    <a href="#watchlist" class="main-navigation__item">Watchlist <span class="main-navigation__item-count">13</span></a>
-    <a href="#history" class="main-navigation__item">History <span class="main-navigation__item-count">4</span></a>
-    <a href="#favorites" class="main-navigation__item">Favorites <span class="main-navigation__item-count">8</span></a>
-    <a href="#stats" class="main-navigation__item main-navigation__item--additional">Stats</a>
+  ${filtersMarkup}
   </nav>`;
 };
