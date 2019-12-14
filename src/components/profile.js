@@ -1,3 +1,5 @@
+import {createElement} from "../utils";
+
 const profileRank = (count) => {
   let rank = `newbie`;
   if (count > 0 && count <= 5) {
@@ -17,10 +19,35 @@ const watchlistCount = (cards) => {
   return profileRank(count);
 };
 
-export const createUserProfileCard = (cards) => {
-
-  return `<section class="header__profile profile">
-      <p class="profile__rating">${watchlistCount(cards)}</p>
+const createUserProfileCard = (cards) => {
+  return (
+    `<section class="header__profile profile">
+      <p class="profile__rating">
+        ${watchlistCount(cards)}
+      </p>
       <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-    </section>`;
+    </section>`
+  );
 };
+
+export default class Profile {
+  constructor(cards) {
+    this._cards = cards;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createUserProfileCard(this._cards);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
