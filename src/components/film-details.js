@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import AbstractComponent from "./abstract-component";
 
 const renderGenres = (genres) => {
   const genresList = Array.from(genres);
@@ -16,14 +16,14 @@ const renderGenres = (genres) => {
 };
 
 const createReleaseDate = (releaseDate) => {
-  const {month, day, year} = releaseDate;
+  const { month, day, year } = releaseDate;
   return `${day} ${month} ${year}`;
 };
 
 const renderComments = (comments) => {
   const result = [];
   comments.forEach((comment) => {
-    const {autor, notice, smile, date} = comment;
+    const { autor, notice, smile, date } = comment;
     result.push(`<li class="film-details__comment">
     <span class="film-details__comment-emoji">
       <img src=${smile} width="55" height="55" alt="emoji">
@@ -42,7 +42,7 @@ const renderComments = (comments) => {
 };
 
 const createFilmDetails = (card) => {
-  const {filmName, poster, fullDescription, duration, rating, isAdult, director, writers, actors, releaseDate, country, genres, comments} = card;
+  const { filmName, poster, fullDescription, duration, rating, isAdult, director, writers, actors, releaseDate, country, genres, comments } = card;
 
   return (
     `<section class="film-details">
@@ -159,24 +159,20 @@ const createFilmDetails = (card) => {
   );
 };
 
-export default class Details {
+export default class Details extends AbstractComponent {
   constructor(card) {
+    super();
     this._card = card;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmDetails(this._card);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(handler) {
+    this
+      .getElement()
+      .querySelector(`.film-details__close-btn`)
+      .addEventListener(`click`, handler)
   }
 }

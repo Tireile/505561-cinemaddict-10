@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import AbstractComponent from "./abstract-component";
 
 const profileRank = (count) => {
   let rank = `newbie`;
@@ -30,24 +30,13 @@ const createUserProfileCard = (cards) => {
   );
 };
 
-export default class Profile {
+export default class Profile extends AbstractComponent {
   constructor(cards) {
+    super();
     this._cards = cards;
-    this._element = null;
   }
 
   getTemplate() {
     return createUserProfileCard(this._cards);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

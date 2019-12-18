@@ -10,6 +10,11 @@ export const createElement = (template) => {
   return newElement.firstChild;
 };
 
+export const remove = (container) => {
+  container.getElement().remove();
+  container.removeElement();
+};
+
 export const render = (container, element, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:

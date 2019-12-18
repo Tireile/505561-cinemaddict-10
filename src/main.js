@@ -8,11 +8,11 @@ import NoCardsComponent from "./components/no-cards";
 import DetailsComponent from "./components/film-details";
 import ShowMoreButtonComponent from "./components/show-more-btn";
 import ExtraComponent from "./components/extra-films-template";
-import {generateCards} from "./mock/card";
-import {generateFilters} from "./mock/filter";
-import {render, RenderPosition} from "./utils";
+import { generateCards } from "./mock/card";
+import { generateFilters } from "./mock/filter";
+import { render, RenderPosition } from "./utils/render";
 
-const FILM_CARDS_COUNT = 0;
+const FILM_CARDS_COUNT = 12;
 const SHOWING_CARDS_COUNT_ON_START = 5;
 const SHOWING_CARDS_COUNT_BY_BUTTON = 5;
 

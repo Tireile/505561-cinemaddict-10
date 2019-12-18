@@ -1,7 +1,7 @@
-import {createElement} from "../utils";
+import AbstractComponent from "./abstract-component";
 
 const createFilterMarkup = (filter, isStats) => {
-  const {name, count} = filter;
+  const { name, count } = filter;
   const hashtagName = name.toLowerCase().split(` `).filter((key) => key[0]).join();
   return (
     `<a href="#${hashtagName}" class="main-navigation__item ${isStats ? `main-navigation__item--additional` : ``}">${name} 
@@ -22,24 +22,13 @@ const createStatisticTemplate = (filters) => {
   );
 };
 
-export default class Statistic {
+export default class Statistic extends AbstractComponent {
   constructor(filters) {
+    super();
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {
     return createStatisticTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
