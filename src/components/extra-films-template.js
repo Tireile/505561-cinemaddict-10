@@ -13,7 +13,7 @@ const extraFilmsTemplate = (title) => {
 
 export default class Extra extends AbstractComponent {
   constructor(title) {
-    super()
+    super();
     this._title = title;
   }
 

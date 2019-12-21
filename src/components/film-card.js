@@ -11,7 +11,7 @@ const commentsRender = (comments) => {
 };
 
 const createFilmCardTemplate = (card) => {
-  const { filmName, releaseDate: { year }, duration, genres, poster, description, comments, rating } = card;
+  const {filmName, releaseDate: {year}, duration, genres, poster, description, comments, rating} = card;
   return (
     `<article class="film-card">
       <h3 class="film-card__title">${filmName}</h3>
@@ -45,12 +45,5 @@ export default class FilmCard extends AbstractComponent {
 
   getTemplate() {
     return createFilmCardTemplate(this._card);
-  }
-
-  setClickHandler(handler) {
-    this
-      .getElement()
-      .querySelectorAll(`.film-card`)
-      .addEventListener(`click`, handler)
   }
 }

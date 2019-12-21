@@ -16,14 +16,14 @@ const renderGenres = (genres) => {
 };
 
 const createReleaseDate = (releaseDate) => {
-  const { month, day, year } = releaseDate;
+  const {month, day, year} = releaseDate;
   return `${day} ${month} ${year}`;
 };
 
 const renderComments = (comments) => {
   const result = [];
   comments.forEach((comment) => {
-    const { autor, notice, smile, date } = comment;
+    const {autor, notice, smile, date} = comment;
     result.push(`<li class="film-details__comment">
     <span class="film-details__comment-emoji">
       <img src=${smile} width="55" height="55" alt="emoji">
@@ -42,7 +42,7 @@ const renderComments = (comments) => {
 };
 
 const createFilmDetails = (card) => {
-  const { filmName, poster, fullDescription, duration, rating, isAdult, director, writers, actors, releaseDate, country, genres, comments } = card;
+  const {filmName, poster, fullDescription, duration, rating, isAdult, director, writers, actors, releaseDate, country, genres, comments} = card;
 
   return (
     `<section class="film-details">
@@ -173,6 +173,6 @@ export default class Details extends AbstractComponent {
     this
       .getElement()
       .querySelector(`.film-details__close-btn`)
-      .addEventListener(`click`, handler)
+      .addEventListener(`click`, handler);
   }
 }
