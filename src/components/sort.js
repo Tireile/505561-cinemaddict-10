@@ -27,6 +27,11 @@ export default class Sort extends AbstractComponent {
     this.getElement().addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
+      const nodeList = this.getElement().querySelectorAll(`a`);
+      nodeList.forEach(element => {
+        element.classList.remove(`sort__button--active`);
+      });
+      evt.target.classList.add(`sort__button--active`);
       if (evt.target.tagName !== `A`) {
         return;
       }
